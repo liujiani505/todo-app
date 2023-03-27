@@ -116,3 +116,29 @@ Note: Absolute positioned elements are removed from the normal flow, and can ove
 .clear-btn:active{
     transform: scale(0.93);
 }
+
+.task-box{
+    margin-top: 20px;
+    margin-right: 5px;
+    padding: 0 20px 10px 25px;
+}
+
+.task-box.overflow{
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.task-box::-webkit-scrollbar{
+    width: 5px;
+}
+
+.task-box::-webkit-scrollbar-track{
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+.task-box::-webkit-scrollbar-thumb{
+    background: #e6e6e6;
+    border-radius: 25px;
+}
+
