@@ -29,3 +29,41 @@ body{
     border-radius: 7px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
+
+.task-input {
+    height: 52px;
+    padding: 0 25px;
+    position: relative;
+}
+
+/* An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed).
+
+However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
+
+Note: Absolute positioned elements are removed from the normal flow, and can overlap elements. */
+
+.task-input img{
+    position: absolute;
+    top: 50%;
+    transform: translate(17px, -50%);
+}
+
+.task-input input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 18px;
+    border-radius: 5px;
+    padding: 0 20px 0 53px;
+    border: 1px solid #999;
+}
+
+.task-input input:focus, .task-input input.active{
+    padding-left: 52px;
+    border: 2px solid #1e293b;
+}
+
+.task-input input::placeholder{
+    color: #bfbfbf;
+}
+
