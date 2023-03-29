@@ -6,7 +6,7 @@ const taskInput = document.querySelector(".task-input input"),
 let editId,
 isEditTask = false;
 
-// localStorage object stores key-value pairs in the browser. The localStorage object stores data with no expiration date. So to store a entire javascript object we need to serialize it first (with JSON.stringify, for example): localStorage.setItem('user', JSON.stringify(user));
+// localStorage object stores key-value pairs in the browser. The localStorage object stores data with no expiration date. It is stored in the user's cashe and remains there until it is cleaned up by the user or via the web app. So to store a entire javascript object we need to serialize it first (with JSON.stringify, for example): localStorage.setItem('user', JSON.stringify(user));
 //Then to retrieve it from the store and convert to an object again: var user = JSON.parse(localStorage.getItem('user'));
 //If we need to delete all entries of the store we can simply do: localStorage.clear();
 todos = JSON.parse(localStorage.getItem("todo-list"));
@@ -17,4 +17,38 @@ filters.forEach(btn => {
         btn.classList.add("active")
         showTodo(btn.id)
     });
-})
+});
+
+
+// <label for="element_id">
+
+function showTodo(filter){
+    let liTag = "";
+    if(todos){
+        todos.forEach((todo, id) => {
+            let completed = todo.status == "completed" ? "checked" : ""; 
+            if( filter == todo.status || filter == "all"){
+                liTag += `<li class="task>
+                    <label for="${id}">
+                        <input onclick="updateStatus(this)" type="checkbox" id="${id}" ${completed}>
+                        <p class="${completed}">${todo.name}</p>
+                    </label>
+                    <div class="settings">
+                        <i onclick="showMenu(this)" class="uil uil-ellipsis-h"></i>
+                        <ul class="task-menu">
+                            <li onclick='editTask(${id}, "${todo.name}")'><i class="uil uil-pen"></i>Edit</li>
+                            <li onclick='deleteTask(${id}, "${filter}")'><i class="uil uil-trash"></i>Delete</li>
+                        </ul>
+                    </div>
+                </li>`;
+            }
+        });
+    }
+    taskBox.innerHTML = liTag || `<span>You don't have any tasks yet.</span>`;
+    let checkTask = taskBox.querySelectorAll(".task");
+    checkTask.length ? clearAll.classList.add("active") : clearAll.classList.remove("active");
+    taskBox.offsetHeight >=300 ? taskBox.classList.add("overflow") : taskBox.classList.remove("overflow");
+}
+
+showTodo("all");
+
