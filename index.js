@@ -21,6 +21,7 @@ filters.forEach(btn => {
 
 
 // <label for="element_id">
+//The HTMLElement.offsetHeight read-only property returns the height of an element, including vertical padding and borders, as an integer.
 
 function showTodo(filter){
     let liTag = "";
@@ -51,4 +52,16 @@ function showTodo(filter){
 }
 
 showTodo("all");
+
+
+
+function showMenu(selectedTask) {
+    let menuDiv = selectedTask.parentElement.lastElementChild;
+    menuDiv.classList.add("show");
+    document.addEventListener("click", e => {
+        if(e.target.tagName != "I" || e.target != selectedTask) {
+            menuDiv.classList.remove("show");
+        }
+    });
+}
 
