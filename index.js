@@ -78,6 +78,13 @@ function updateStatus(selectedTask){
     localStorage.setItem("todo-list", JSON.stringify(todos));
 }
 
+function editTask(taskId, textName) {
+    editId = taskId;
+    isEditTask = true;
+    taskInput.value = textName;
+    taskInput.focus();
+    taskInput.classList.add("active")
+}
 
 
 
