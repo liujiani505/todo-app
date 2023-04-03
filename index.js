@@ -23,13 +23,13 @@ filters.forEach(btn => {
 // <label for="element_id">
 //The HTMLElement.offsetHeight read-only property returns the height of an element, including vertical padding and borders, as an integer.
 
-function showTodo(filter){
+function showTodo(filter) {
     let liTag = "";
-    if(todos){
+    if (todos) {
         todos.forEach((todo, id) => {
-            let completed = todo.status == "completed" ? "checked" : ""; 
-            if( filter == todo.status || filter == "all"){
-                liTag += `<li class="task>
+            let completed = todo.status == "completed" ? "checked" : "";
+            if (filter == todo.status || filter == "all") {
+                liTag += `<li class="task">
                     <label for="${id}">
                         <input onclick="updateStatus(this)" type="checkbox" id="${id}" ${completed}>
                         <p class="${completed}">${todo.name}</p>
@@ -45,37 +45,36 @@ function showTodo(filter){
             }
         });
     }
-    taskBox.innerHTML = liTag || `<span>You don't have any tasks yet.</span>`;
+
+    taskBox.innerHTML = liTag || `<span>You don't have any task here</span>`;
     let checkTask = taskBox.querySelectorAll(".task");
-    checkTask.length ? clearAll.classList.add("active") : clearAll.classList.remove("active");
-    taskBox.offsetHeight >=300 ? taskBox.classList.add("overflow") : taskBox.classList.remove("overflow");
+    !checkTask.length ? clearAll.classList.remove("active") : clearAll.classList.add("active");
+    taskBox.offsetHeight >= 300 ? taskBox.classList.add("overflow") : taskBox.classList.remove("overflow");
+
 }
-
 showTodo("all");
-
 
 
 function showMenu(selectedTask) {
     let menuDiv = selectedTask.parentElement.lastElementChild;
     menuDiv.classList.add("show");
     document.addEventListener("click", e => {
-        if(e.target.tagName != "I" || e.target != selectedTask) {
+        if (e.target.tagName != "I" || e.target != selectedTask) {
             menuDiv.classList.remove("show");
         }
     });
 }
 
-function updateStatus(selectedTask){
+function updateStatus(selectedTask) {
     let taskName = selectedTask.parentElement.lastElementChild;
-    console.log(taskName);
-    if(selectedTask.checked){
+    if (selectedTask.checked) {
         taskName.classList.add("checked");
         todos[selectedTask.id].status = "completed";
     } else {
         taskName.classList.remove("checked");
         todos[selectedTask.id].status = "pending";
     }
-    localStorage.setItem("todo-list", JSON.stringify(todos));
+    localStorage.setItem("todo-list", JSON.stringify(todos))
 }
 
 function editTask(taskId, textName) {
@@ -83,29 +82,29 @@ function editTask(taskId, textName) {
     isEditTask = true;
     taskInput.value = textName;
     taskInput.focus();
-    taskInput.classList.add("active")
+    taskInput.classList.add("active");
 }
 
-function deleteTask(deleteId, filter){
+function deleteTask(deleteId, filter) {
     isEditTask = false;
     todos.splice(deleteId, 1);
     localStorage.setItem("todo-list", JSON.stringify(todos));
     showTodo(filter);
 }
 
-clearAll.addEventListener("click", ()=> {
+clearAll.addEventListener("click", () => {
     isEditTask = false;
     todos.splice(0, todos.length);
     localStorage.setItem("todo-list", JSON.stringify(todos));
     showTodo();
-})
+});
 
-taskInput.addEventListener("keyup", e=> {
+taskInput.addEventListener("keyup", e => {
     let userTask = taskInput.value.trim();
-    if( e.key == "Enter" && userTask){
-        if(!isEditTask){
+    if (e.key == "Enter" && userTask) {
+        if (!isEditTask) {
             todos = !todos ? [] : todos;
-            let taskInfo = { name: userTask, status:"pending"};
+            let taskInfo = { name: userTask, status: "pending" };
             todos.push(taskInfo);
         } else {
             isEditTask = false;
