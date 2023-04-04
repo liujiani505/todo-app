@@ -154,10 +154,13 @@ body{
     align-items: flex-start;
 }
 
+/* The accent-color property specifies the accent color for user-interface controls like: <input type="checkbox">, <input type="radio">, <input type="range"> and <progress>. */
+
 .task-box label input{
     margin-top: 7px;
     accent-color: #1e293b;
 }
+
 
 .task-box label p{
     user-select: none;
